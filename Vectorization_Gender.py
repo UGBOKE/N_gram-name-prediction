@@ -1,10 +1,13 @@
 import torch
-import Preprocessing
+import joblib
 from transformers import BertTokenizer
+
+# Load preprocessed data
+train_texts, val_texts, train_labels, val_labels = joblib.load('processed_data.pkl')
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-class NameDataset(torch.utils.data.Dataset):  
+class NameDataset(torch.utils.data.Dataset):
     def __init__(self, texts, labels):
         self.texts = texts
         self.labels = labels
@@ -22,3 +25,6 @@ class NameDataset(torch.utils.data.Dataset):
 
 train_dataset = NameDataset(train_texts, train_labels)
 val_dataset = NameDataset(val_texts, val_labels)
+
+# Just a print statement to verify everything works
+print(f"Number of training samples: {len(train_dataset)}, Number of validation samples: {len(val_dataset)}")

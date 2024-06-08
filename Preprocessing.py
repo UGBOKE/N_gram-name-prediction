@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-
+import joblib
 
 
 # Load data
@@ -14,4 +14,6 @@ label_mapping = dict(zip(label_encoder.classes_, label_encoder.transform(label_e
 label_mapping # F = 0 and M = 1
 
 # Split data into training and validation sets
-train_texts, val_texts, train_labels, val_labels = train_test_split(data['Name'], data['Gender'], test_size=0.2)
+train_texts, val_texts, train_labels, val_labels = train_test_split(data['Name'], data['Gender'], test_size=0.2, random_state=42)
+
+joblib.dump((train_texts, val_texts, train_labels, val_labels), 'processed_data.pkl')
