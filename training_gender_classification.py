@@ -19,15 +19,15 @@ class NameDataset(torch.utils.data.Dataset):
         item['labels'] = torch.tensor(label)
         return item
 
-# Ensure the tokenizer is defined
+
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-# Load datasets
+
 train_dataset = joblib.load('train_dataset.pkl')
 val_dataset = joblib.load('val_dataset.pkl')
 
-# Load model
+
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
 
 # Define training arguments
